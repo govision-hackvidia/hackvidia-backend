@@ -1,0 +1,28 @@
+package handler
+
+import (
+	"encoding/json"
+	"log"
+	"net/http"
+)
+
+type EnviroscanResponse struct {
+	Text   string `json:"text"`
+	IsDone bool   `json:"is_done"`
+}
+
+func EnviroscanHandler() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		// TODO: EnviroScan Implementation
+		data, err := json.Marshal(EnviroscanResponse{
+			Text:   "enviroscan_test",
+			IsDone: false,
+		})
+		if err != nil {
+			log.Println("error on marshal JSON: ", err)
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
+		w.Write(data)
+	}
+}
