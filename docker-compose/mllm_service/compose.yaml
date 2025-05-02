@@ -2,11 +2,26 @@ services:
   mllm_service:
     container_name: govision_mllm
     image: govision_mllm_service:v1.0
+    environment:
+      - SERVICE_HOST=0.0.0.0
+      - SERVICE_PORT=50051
     ports:
       - "50051:50051"
     networks:
       - caddy_network
-
+    volumes:
+      - "~/.cache/huggingface:/root/.cache/huggingface"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    command: python /app/main.py
 networks:
   caddy_network:
     external: true
+  default:
+    external: true
+    name: nat

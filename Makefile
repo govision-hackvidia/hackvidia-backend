@@ -10,3 +10,16 @@ generate_mllm:
 		--proto_path=protobuf "protobuf/mllm.proto" \
 		--python_out=python/mllm \
 		--grpc_python_out=python/mllm
+
+generate_hazalert:
+	@protoc \
+		--proto_path=protobuf "protobuf/hazalert.proto" \
+		--go_out=go/protobuf/ \
+		--go_opt=paths=source_relative \
+		--go-grpc_out=go/protobuf/ \
+		--go-grpc_opt=paths=source_relative
+
+	@~/.pyenv/bin/python -m grpc_tools.protoc \
+		--proto_path=protobuf "protobuf/hazalert.proto" \
+		--python_out=python/hazalert \
+		--grpc_python_out=python/hazalert

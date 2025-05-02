@@ -2,11 +2,18 @@ services:
   main_service:
     container_name: govision_main
     image: govision_main_service:v1.0
+    environment:
+      - SERVICE_HOST=0.0.0.0
+      - SERVICE_PORT=8080
     ports:
       - "8080:8080"
     networks:
       - caddy_network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
 networks:
   caddy_network:
+    external: true
+  default:
     external: true

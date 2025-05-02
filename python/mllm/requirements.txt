@@ -1,3 +1,4 @@
+grpcio-tools
 torch
 torchvision
 transformers

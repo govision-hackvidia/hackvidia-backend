@@ -1,0 +1,15 @@
+syntax = "proto3";
+package service;
+option go_package = "github.com/govision-hackvidia/hackvidia-backend/protobuf";
+
+message HazalertRequest {
+    bytes image = 1;
+}
+
+message HazalertResponse {
+    float nearest_distance = 1;
+}
+
+service MllmService {
+    rpc Predict (HazalertRequest) returns (HazalertResponse) {}
+}

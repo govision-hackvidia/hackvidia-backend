@@ -4,7 +4,7 @@ import mllm_pb2
 import mllm_pb2_grpc
 
 import torch
-from transformers import AutoProcessor, AutoModel, LlavaForConditionalGeneration
+from transformers import AutoProcessor, LlavaForConditionalGeneration
 
 
 MODEL_NAME = "llava-hf/llava-1.5-7b-hf"
@@ -52,11 +52,19 @@ class MLLMServicer(mllm_pb2_grpc.MllmService):
         print(outputs)
         return mllm_pb2.MllmResponse(text=outputs)
     
+import os
+import sys
+
 if __name__ == "__main__":
     server = grpc.server(ThreadPoolExecutor(max_workers=2))
     mllm_pb2_grpc.add_MllmServiceServicer_to_server(
         MLLMServicer(), server
     )
-    server.add_insecure_port("[::]:50051")
+    port = os.environ.get("SERVICE_PORT")
+    if port == None:
+        print("SERVICE_PORT not set")
+        sys.exit(1)
+    print(f"Listening on :{port}")
+    server.add_insecure_port(f"[::]:{port}")
     server.start()
     server.wait_for_termination()
