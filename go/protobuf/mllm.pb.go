@@ -68,7 +68,6 @@ func (x *MllmRequest) GetText() string {
 type MllmResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Text          string                 `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
-	IsDone        bool                   `protobuf:"varint,2,opt,name=is_done,json=isDone,proto3" json:"is_done,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -110,13 +109,6 @@ func (x *MllmResponse) GetText() string {
 	return ""
 }
 
-func (x *MllmResponse) GetIsDone() bool {
-	if x != nil {
-		return x.IsDone
-	}
-	return false
-}
-
 var File_mllm_proto protoreflect.FileDescriptor
 
 const file_mllm_proto_rawDesc = "" +
@@ -124,12 +116,11 @@ const file_mllm_proto_rawDesc = "" +
 	"\n" +
 	"mllm.proto\x12\aservice\"!\n" +
 	"\vMllmRequest\x12\x12\n" +
-	"\x04text\x18\x01 \x01(\tR\x04text\";\n" +
+	"\x04text\x18\x01 \x01(\tR\x04text\"\"\n" +
 	"\fMllmResponse\x12\x12\n" +
-	"\x04text\x18\x01 \x01(\tR\x04text\x12\x17\n" +
-	"\ais_done\x18\x02 \x01(\bR\x06isDone2F\n" +
-	"\vMllmService\x127\n" +
-	"\x04Chat\x12\x14.service.MllmRequest\x1a\x15.service.MllmResponse\"\x000\x01B:Z8github.com/govision-hackvidia/hackvidia-backend/protobufb\x06proto3"
+	"\x04text\x18\x01 \x01(\tR\x04text2D\n" +
+	"\vMllmService\x125\n" +
+	"\x04Chat\x12\x14.service.MllmRequest\x1a\x15.service.MllmResponse\"\x00B:Z8github.com/govision-hackvidia/hackvidia-backend/protobufb\x06proto3"
 
 var (
 	file_mllm_proto_rawDescOnce sync.Once

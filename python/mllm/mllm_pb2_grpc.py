@@ -34,7 +34,7 @@ class MllmServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.Chat = channel.unary_stream(
+        self.Chat = channel.unary_unary(
                 '/service.MllmService/Chat',
                 request_serializer=mllm__pb2.MllmRequest.SerializeToString,
                 response_deserializer=mllm__pb2.MllmResponse.FromString,
@@ -53,7 +53,7 @@ class MllmServiceServicer(object):
 
 def add_MllmServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'Chat': grpc.unary_stream_rpc_method_handler(
+            'Chat': grpc.unary_unary_rpc_method_handler(
                     servicer.Chat,
                     request_deserializer=mllm__pb2.MllmRequest.FromString,
                     response_serializer=mllm__pb2.MllmResponse.SerializeToString,
@@ -80,7 +80,7 @@ class MllmService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(
+        return grpc.experimental.unary_unary(
             request,
             target,
             '/service.MllmService/Chat',

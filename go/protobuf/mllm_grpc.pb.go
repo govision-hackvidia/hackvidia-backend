@@ -26,7 +26,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MllmServiceClient interface {
-	Chat(ctx context.Context, in *MllmRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[MllmResponse], error)
+	Chat(ctx context.Context, in *MllmRequest, opts ...grpc.CallOption) (*MllmResponse, error)
 }
 
 type mllmServiceClient struct {
@@ -37,30 +37,21 @@ func NewMllmServiceClient(cc grpc.ClientConnInterface) MllmServiceClient {
 	return &mllmServiceClient{cc}
 }
 
-func (c *mllmServiceClient) Chat(ctx context.Context, in *MllmRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[MllmResponse], error) {
+func (c *mllmServiceClient) Chat(ctx context.Context, in *MllmRequest, opts ...grpc.CallOption) (*MllmResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	stream, err := c.cc.NewStream(ctx, &MllmService_ServiceDesc.Streams[0], MllmService_Chat_FullMethodName, cOpts...)
+	out := new(MllmResponse)
+	err := c.cc.Invoke(ctx, MllmService_Chat_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &grpc.GenericClientStream[MllmRequest, MllmResponse]{ClientStream: stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	return x, nil
+	return out, nil
 }
-
-// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type MllmService_ChatClient = grpc.ServerStreamingClient[MllmResponse]
 
 // MllmServiceServer is the server API for MllmService service.
 // All implementations must embed UnimplementedMllmServiceServer
 // for forward compatibility.
 type MllmServiceServer interface {
-	Chat(*MllmRequest, grpc.ServerStreamingServer[MllmResponse]) error
+	Chat(context.Context, *MllmRequest) (*MllmResponse, error)
 	mustEmbedUnimplementedMllmServiceServer()
 }
 
@@ -71,8 +62,8 @@ type MllmServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedMllmServiceServer struct{}
 
-func (UnimplementedMllmServiceServer) Chat(*MllmRequest, grpc.ServerStreamingServer[MllmResponse]) error {
-	return status.Errorf(codes.Unimplemented, "method Chat not implemented")
+func (UnimplementedMllmServiceServer) Chat(context.Context, *MllmRequest) (*MllmResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Chat not implemented")
 }
 func (UnimplementedMllmServiceServer) mustEmbedUnimplementedMllmServiceServer() {}
 func (UnimplementedMllmServiceServer) testEmbeddedByValue()                     {}
@@ -95,16 +86,23 @@ func RegisterMllmServiceServer(s grpc.ServiceRegistrar, srv MllmServiceServer) {
 	s.RegisterService(&MllmService_ServiceDesc, srv)
 }
 
-func _MllmService_Chat_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(MllmRequest)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
+func _MllmService_Chat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MllmRequest)
+	if err := dec(in); err != nil {
+		return nil, err
 	}
-	return srv.(MllmServiceServer).Chat(m, &grpc.GenericServerStream[MllmRequest, MllmResponse]{ServerStream: stream})
+	if interceptor == nil {
+		return srv.(MllmServiceServer).Chat(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MllmService_Chat_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MllmServiceServer).Chat(ctx, req.(*MllmRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
-
-// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type MllmService_ChatServer = grpc.ServerStreamingServer[MllmResponse]
 
 // MllmService_ServiceDesc is the grpc.ServiceDesc for MllmService service.
 // It's only intended for direct use with grpc.RegisterService,
@@ -112,13 +110,12 @@ type MllmService_ChatServer = grpc.ServerStreamingServer[MllmResponse]
 var MllmService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "service.MllmService",
 	HandlerType: (*MllmServiceServer)(nil),
-	Methods:     []grpc.MethodDesc{},
-	Streams: []grpc.StreamDesc{
+	Methods: []grpc.MethodDesc{
 		{
-			StreamName:    "Chat",
-			Handler:       _MllmService_Chat_Handler,
-			ServerStreams: true,
+			MethodName: "Chat",
+			Handler:    _MllmService_Chat_Handler,
 		},
 	},
+	Streams:  []grpc.StreamDesc{},
 	Metadata: "mllm.proto",
 }

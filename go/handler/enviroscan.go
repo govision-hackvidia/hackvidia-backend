@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"strings"
-	"time"
+
+	"github.com/govision-hackvidia/hackvidia-backend/service"
 )
 
 type EnviroscanResponse struct {
@@ -14,34 +14,21 @@ type EnviroscanResponse struct {
 }
 
 func (h *Handler) EnviroscanHandler() http.HandlerFunc {
+	grpc_client := service.NewGrpcClient()
 	return func(w http.ResponseWriter, r *http.Request) {
-
-		// TODO: EnviroScan Implementation
-		// TODO: EnviroScan Implementation
-		flusher, _ := w.(http.Flusher)
+		grpc_client.Chat()
+		// grpc_client.Client
+		// flusher, _ := w.(http.Flusher)
 		w.Header().Set("Content-Type", "application/json")
 		// Simulate Chunk Stream
 
 		text := "Hello, I am Enviroscan. Nice to meet you."
-		textSplit := strings.Split(text, " ")
-		for i, t := range textSplit {
-			is_done := false
-			if i+1 == len(textSplit) {
-				is_done = true
-			}
-			data, err := json.Marshal(EnviroscanResponse{
-				Text:   t,
-				IsDone: is_done,
-			})
-
-			if err != nil {
-				log.Println("error on marshal JSON: ", err)
-				return
-			}
-			w.Write(data)
-			flusher.Flush()
-			time.Sleep(10 * time.Millisecond)
+		data, err := json.Marshal(EnviroscanResponse{
+			Text: text,
+		})
+		if err != nil {
+			log.Println("unable to marshal JSON: ", err)
 		}
-
+		w.Write(data)
 	}
 }

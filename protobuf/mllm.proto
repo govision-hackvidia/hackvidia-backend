@@ -8,9 +8,8 @@ message MllmRequest {
 
 message MllmResponse {
     string text = 1;
-    bool is_done = 2;
 }
 
 service MllmService {
-    rpc Chat (MllmRequest) returns (stream MllmResponse) {}
+    rpc Chat (MllmRequest) returns (MllmResponse) {}
 }

@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nmllm.proto\x12\x07service\"\x1b\n\x0bMllmRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\"-\n\x0cMllmResponse\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x0f\n\x07is_done\x18\x02 \x01(\x08\x32\x46\n\x0bMllmService\x12\x37\n\x04\x43hat\x12\x14.service.MllmRequest\x1a\x15.service.MllmResponse\"\x00\x30\x01\x42:Z8github.com/govision-hackvidia/hackvidia-backend/protobufb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nmllm.proto\x12\x07service\"\x1b\n\x0bMllmRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\"\x1c\n\x0cMllmResponse\x12\x0c\n\x04text\x18\x01 \x01(\t2D\n\x0bMllmService\x12\x35\n\x04\x43hat\x12\x14.service.MllmRequest\x1a\x15.service.MllmResponse\"\x00\x42:Z8github.com/govision-hackvidia/hackvidia-backend/protobufb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -35,7 +35,7 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_MLLMREQUEST']._serialized_start=23
   _globals['_MLLMREQUEST']._serialized_end=50
   _globals['_MLLMRESPONSE']._serialized_start=52
-  _globals['_MLLMRESPONSE']._serialized_end=97
-  _globals['_MLLMSERVICE']._serialized_start=99
-  _globals['_MLLMSERVICE']._serialized_end=169
+  _globals['_MLLMRESPONSE']._serialized_end=80
+  _globals['_MLLMSERVICE']._serialized_start=82
+  _globals['_MLLMSERVICE']._serialized_end=150
 # @@protoc_insertion_point(module_scope)

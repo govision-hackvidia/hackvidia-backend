@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"strings"
-	"time"
 )
 
 type LumenResponse struct {
@@ -16,29 +14,25 @@ type LumenResponse struct {
 func (h *Handler) LumenHandler() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		// TODO: EnviroScan Implementation
-		flusher, _ := w.(http.Flusher)
+		// flusher, _ := w.(http.Flusher)
 		// Simulate Chunk Stream
 
 		text := "Hello, I am LUMEN"
-		textSplit := strings.Split(text, " ")
-		for i, t := range textSplit {
-			is_done := false
-			if i+1 == len(textSplit) {
-				is_done = true
-			}
-			data, err := json.Marshal(LumenResponse{
-				Text:   t,
-				IsDone: is_done,
-			})
 
-			if err != nil {
-				log.Println("error on marshal JSON: ", err)
-				return
-			}
-			w.Write(data)
-			flusher.Flush()
-			time.Sleep(10 * time.Millisecond)
+		data, err := json.Marshal(LumenResponse{
+			Text: text,
+		})
+		if err != nil {
+			log.Println("unable to marshal JSON: ", err)
 		}
+		w.Write(data)
+
+		// textSplit := strings.Split(text, " ")
+		// for _, t := range textSplit {
+		// w.Write([]byte(t))
+		// flusher.Flush()
+		// time.Sleep(10 * time.Millisecond)
+		// }
 
 	}
 }
