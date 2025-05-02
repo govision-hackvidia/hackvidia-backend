@@ -10,9 +10,11 @@ type DB struct {
 	Pool *pgxpool.Pool
 }
 
+const postgresDBname = "govision"
+
 func NewDB() *DB {
 	// TODO: psql Connection
-	pool, err := pgxpool.New(context.Background(), "")
+	pool, err := pgxpool.New(context.Background(), postgresDBname)
 	if err != nil {
 		return nil
 	}
