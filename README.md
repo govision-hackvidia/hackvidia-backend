@@ -18,6 +18,22 @@ These instructions will get you a copy of the project up and running on your loc
 ```$ git clone https://github.com/govision-hackvidia/hackvidia-backend.git
 ```
 
+2. Install protoc for Go
+```bash
+go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+```
+
+3. Install grpcio-tools for Python
+```bash
+python3 -m pip install grpcio-tools
+```
+
+4. Update PATH for protoc
+```bash
+export PATH="$PATH:$(go env GOPATH)/bin"
+```
+
 ## Deployment
 
 Before deploying, ensure you have the following installed:

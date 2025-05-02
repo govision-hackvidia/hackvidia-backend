@@ -1,0 +1,16 @@
+syntax = "proto3";
+package service;
+option go_package = "github.com/govision-hackvidia/hackvidia-backend/protobuf";
+
+message MllmRequest {
+    string text = 1;
+}
+
+message MllmResponse {
+    string text = 1;
+    bool is_done = 2;
+}
+
+service MllmService {
+    rpc Chat (MllmRequest) returns (stream MllmResponse) {}
+}
