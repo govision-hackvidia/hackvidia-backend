@@ -86,6 +86,13 @@ func (d *DB) SelectArticleByID(article_id int) (string, string, string, string, 
 
 }
 
-func (d *DB) DeleteArticle() {
+func (d *DB) DeleteArticle(article_id int) {
 	// TODO: Delete Article
+	// use id as primary key for deleting a certain article
+	_, err := d.Pool.Exec(context.Background(), "DELETE FROM article WHERE id=$1", article_id)
+	if err != nil {
+		fmt.Printf("Failed to delete article with id: %d!", article_id)
+	} else {
+		fmt.Printf("Deleted article id: %d", article_id)
+	}
 }
