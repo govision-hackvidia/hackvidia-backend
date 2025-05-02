@@ -10,7 +10,7 @@ type DB struct {
 	Pool *pgxpool.Pool
 }
 
-const postgresDBname = "govision"
+const postgresDBname = "govision_article"
 
 func NewDB() *DB {
 	// TODO: psql Connection
