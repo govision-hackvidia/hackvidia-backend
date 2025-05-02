@@ -16,6 +16,7 @@ class MLLMServicer(mllm_pb2_grpc.MllmService):
                 use_fast=True)
 
     def Predict(self, request, context):
+        print(request)
         return hazalert_pb2.HazalertResponse(nearest_distance=0.0)
     
 

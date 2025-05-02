@@ -6,6 +6,9 @@ import mllm_pb2_grpc
 import torch
 from transformers import AutoProcessor, LlavaForConditionalGeneration
 
+from PIL import Image
+import io
+
 import os
 import sys
 
@@ -29,10 +32,17 @@ class MLLMServicer(mllm_pb2_grpc.MllmService):
             use_fast=True,
         )
     def Chat(self, request, context):
-        print(request)
+        print(request.text)
         content = []
         if request.text != "":
             content.append({"type": "text", "text": request.text})
+        
+        print(len(request.image))
+        if request.image != None and len(request.image) > 0:
+            img_buffer = io.BytesIO(request.image)
+            print(img_buffer)
+            img = Image.open(img_buffer)
+            content.append({"type": "image", "image": img})
         conversation = [
             {
                 "role": "user",

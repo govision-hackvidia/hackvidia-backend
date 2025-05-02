@@ -24,6 +24,7 @@ const (
 type MllmRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Text          string                 `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
+	Image         []byte                 `protobuf:"bytes,2,opt,name=image,proto3,oneof" json:"image,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -63,6 +64,13 @@ func (x *MllmRequest) GetText() string {
 		return x.Text
 	}
 	return ""
+}
+
+func (x *MllmRequest) GetImage() []byte {
+	if x != nil {
+		return x.Image
+	}
+	return nil
 }
 
 type MllmResponse struct {
@@ -114,9 +122,11 @@ var File_mllm_proto protoreflect.FileDescriptor
 const file_mllm_proto_rawDesc = "" +
 	"\n" +
 	"\n" +
-	"mllm.proto\x12\aservice\"!\n" +
+	"mllm.proto\x12\aservice\"F\n" +
 	"\vMllmRequest\x12\x12\n" +
-	"\x04text\x18\x01 \x01(\tR\x04text\"\"\n" +
+	"\x04text\x18\x01 \x01(\tR\x04text\x12\x19\n" +
+	"\x05image\x18\x02 \x01(\fH\x00R\x05image\x88\x01\x01B\b\n" +
+	"\x06_image\"\"\n" +
 	"\fMllmResponse\x12\x12\n" +
 	"\x04text\x18\x01 \x01(\tR\x04text2D\n" +
 	"\vMllmService\x125\n" +
@@ -154,6 +164,7 @@ func file_mllm_proto_init() {
 	if File_mllm_proto != nil {
 		return
 	}
+	file_mllm_proto_msgTypes[0].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

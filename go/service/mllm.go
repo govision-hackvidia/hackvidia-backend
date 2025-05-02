@@ -38,7 +38,8 @@ func NewGrpcClient() *GrpcClient {
 
 func (c *GrpcClient) Chat(text string, image []byte) string {
 	resp, err := c.Client.Chat(context.Background(), &protobuf.MllmRequest{
-		Text: text,
+		Text:  text,
+		Image: image,
 	})
 	if err != nil {
 		log.Println("error on Chat: ", err)
