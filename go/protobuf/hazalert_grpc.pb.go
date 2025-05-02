@@ -19,101 +19,101 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	MllmService_Predict_FullMethodName = "/service.MllmService/Predict"
+	HazalertService_Predict_FullMethodName = "/service.HazalertService/Predict"
 )
 
-// MllmServiceClient is the client API for MllmService service.
+// HazalertServiceClient is the client API for HazalertService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type MllmServiceClient interface {
+type HazalertServiceClient interface {
 	Predict(ctx context.Context, in *HazalertRequest, opts ...grpc.CallOption) (*HazalertResponse, error)
 }
 
-type mllmServiceClient struct {
+type hazalertServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewMllmServiceClient(cc grpc.ClientConnInterface) MllmServiceClient {
-	return &mllmServiceClient{cc}
+func NewHazalertServiceClient(cc grpc.ClientConnInterface) HazalertServiceClient {
+	return &hazalertServiceClient{cc}
 }
 
-func (c *mllmServiceClient) Predict(ctx context.Context, in *HazalertRequest, opts ...grpc.CallOption) (*HazalertResponse, error) {
+func (c *hazalertServiceClient) Predict(ctx context.Context, in *HazalertRequest, opts ...grpc.CallOption) (*HazalertResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(HazalertResponse)
-	err := c.cc.Invoke(ctx, MllmService_Predict_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, HazalertService_Predict_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// MllmServiceServer is the server API for MllmService service.
-// All implementations must embed UnimplementedMllmServiceServer
+// HazalertServiceServer is the server API for HazalertService service.
+// All implementations must embed UnimplementedHazalertServiceServer
 // for forward compatibility.
-type MllmServiceServer interface {
+type HazalertServiceServer interface {
 	Predict(context.Context, *HazalertRequest) (*HazalertResponse, error)
-	mustEmbedUnimplementedMllmServiceServer()
+	mustEmbedUnimplementedHazalertServiceServer()
 }
 
-// UnimplementedMllmServiceServer must be embedded to have
+// UnimplementedHazalertServiceServer must be embedded to have
 // forward compatible implementations.
 //
 // NOTE: this should be embedded by value instead of pointer to avoid a nil
 // pointer dereference when methods are called.
-type UnimplementedMllmServiceServer struct{}
+type UnimplementedHazalertServiceServer struct{}
 
-func (UnimplementedMllmServiceServer) Predict(context.Context, *HazalertRequest) (*HazalertResponse, error) {
+func (UnimplementedHazalertServiceServer) Predict(context.Context, *HazalertRequest) (*HazalertResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Predict not implemented")
 }
-func (UnimplementedMllmServiceServer) mustEmbedUnimplementedMllmServiceServer() {}
-func (UnimplementedMllmServiceServer) testEmbeddedByValue()                     {}
+func (UnimplementedHazalertServiceServer) mustEmbedUnimplementedHazalertServiceServer() {}
+func (UnimplementedHazalertServiceServer) testEmbeddedByValue()                         {}
 
-// UnsafeMllmServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to MllmServiceServer will
+// UnsafeHazalertServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to HazalertServiceServer will
 // result in compilation errors.
-type UnsafeMllmServiceServer interface {
-	mustEmbedUnimplementedMllmServiceServer()
+type UnsafeHazalertServiceServer interface {
+	mustEmbedUnimplementedHazalertServiceServer()
 }
 
-func RegisterMllmServiceServer(s grpc.ServiceRegistrar, srv MllmServiceServer) {
-	// If the following call pancis, it indicates UnimplementedMllmServiceServer was
+func RegisterHazalertServiceServer(s grpc.ServiceRegistrar, srv HazalertServiceServer) {
+	// If the following call pancis, it indicates UnimplementedHazalertServiceServer was
 	// embedded by pointer and is nil.  This will cause panics if an
 	// unimplemented method is ever invoked, so we test this at initialization
 	// time to prevent it from happening at runtime later due to I/O.
 	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
 		t.testEmbeddedByValue()
 	}
-	s.RegisterService(&MllmService_ServiceDesc, srv)
+	s.RegisterService(&HazalertService_ServiceDesc, srv)
 }
 
-func _MllmService_Predict_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _HazalertService_Predict_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(HazalertRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MllmServiceServer).Predict(ctx, in)
+		return srv.(HazalertServiceServer).Predict(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: MllmService_Predict_FullMethodName,
+		FullMethod: HazalertService_Predict_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MllmServiceServer).Predict(ctx, req.(*HazalertRequest))
+		return srv.(HazalertServiceServer).Predict(ctx, req.(*HazalertRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// MllmService_ServiceDesc is the grpc.ServiceDesc for MllmService service.
+// HazalertService_ServiceDesc is the grpc.ServiceDesc for HazalertService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var MllmService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "service.MllmService",
-	HandlerType: (*MllmServiceServer)(nil),
+var HazalertService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "service.HazalertService",
+	HandlerType: (*HazalertServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "Predict",
-			Handler:    _MllmService_Predict_Handler,
+			Handler:    _HazalertService_Predict_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

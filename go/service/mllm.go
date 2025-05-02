@@ -2,7 +2,9 @@ package service
 
 import (
 	"context"
+	"fmt"
 	"log"
+	"os"
 
 	"github.com/govision-hackvidia/hackvidia-backend/protobuf"
 	"google.golang.org/grpc"
@@ -16,7 +18,15 @@ type GrpcClient struct {
 func NewGrpcClient() *GrpcClient {
 	var opt []grpc.DialOption
 	opt = append(opt, grpc.WithTransportCredentials(insecure.NewCredentials()))
-	conn, err := grpc.NewClient("localhost:50051", opt...)
+	mllm_host := os.Getenv("MLLM_HOST")
+	if mllm_host == "" {
+		log.Fatal("MLLM_HOST not set")
+	}
+	mllm_port := os.Getenv("MLLM_PORT")
+	if mllm_port == "" {
+		log.Fatal("MLLM_PORT not set")
+	}
+	conn, err := grpc.NewClient(fmt.Sprintf("%s:%s", mllm_host, mllm_port), opt...)
 	if err != nil {
 		log.Println("error on gRPC client: ", err)
 	}
@@ -26,14 +36,13 @@ func NewGrpcClient() *GrpcClient {
 	}
 }
 
-func (c *GrpcClient) Chat() {
+func (c *GrpcClient) Chat(text string, image []byte) string {
 	resp, err := c.Client.Chat(context.Background(), &protobuf.MllmRequest{
-		Text: "ABC",
+		Text: text,
 	})
 	if err != nil {
 		log.Println("error on Chat: ", err)
 	}
 
-	log.Println(resp)
-	// c.Client.Chat()
+	return resp.GetText()
 }

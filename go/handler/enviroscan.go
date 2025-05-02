@@ -16,13 +16,14 @@ type EnviroscanResponse struct {
 func (h *Handler) EnviroscanHandler() http.HandlerFunc {
 	grpc_client := service.NewGrpcClient()
 	return func(w http.ResponseWriter, r *http.Request) {
-		grpc_client.Chat()
-		// grpc_client.Client
-		// flusher, _ := w.(http.Flusher)
+		input_text := r.FormValue("text")
+		if input_text == "" {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+		text := grpc_client.Chat(input_text, nil)
 		w.Header().Set("Content-Type", "application/json")
 		// Simulate Chunk Stream
 
-		text := "Hello, I am Enviroscan. Nice to meet you."
 		data, err := json.Marshal(EnviroscanResponse{
 			Text: text,
 		})

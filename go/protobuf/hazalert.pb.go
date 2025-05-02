@@ -117,8 +117,8 @@ const file_hazalert_proto_rawDesc = "" +
 	"\x0fHazalertRequest\x12\x14\n" +
 	"\x05image\x18\x01 \x01(\fR\x05image\"=\n" +
 	"\x10HazalertResponse\x12)\n" +
-	"\x10nearest_distance\x18\x01 \x01(\x02R\x0fnearestDistance2O\n" +
-	"\vMllmService\x12@\n" +
+	"\x10nearest_distance\x18\x01 \x01(\x02R\x0fnearestDistance2S\n" +
+	"\x0fHazalertService\x12@\n" +
 	"\aPredict\x12\x18.service.HazalertRequest\x1a\x19.service.HazalertResponse\"\x00B:Z8github.com/govision-hackvidia/hackvidia-backend/protobufb\x06proto3"
 
 var (
@@ -139,8 +139,8 @@ var file_hazalert_proto_goTypes = []any{
 	(*HazalertResponse)(nil), // 1: service.HazalertResponse
 }
 var file_hazalert_proto_depIdxs = []int32{
-	0, // 0: service.MllmService.Predict:input_type -> service.HazalertRequest
-	1, // 1: service.MllmService.Predict:output_type -> service.HazalertResponse
+	0, // 0: service.HazalertService.Predict:input_type -> service.HazalertRequest
+	1, // 1: service.HazalertService.Predict:output_type -> service.HazalertResponse
 	1, // [1:2] is the sub-list for method output_type
 	0, // [0:1] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name

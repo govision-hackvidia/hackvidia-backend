@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+
+	"github.com/govision-hackvidia/hackvidia-backend/service"
 )
 
 type LumenResponse struct {
@@ -13,11 +15,13 @@ type LumenResponse struct {
 
 func (h *Handler) LumenHandler() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		// TODO: EnviroScan Implementation
-		// flusher, _ := w.(http.Flusher)
-		// Simulate Chunk Stream
-
-		text := "Hello, I am LUMEN"
+		grpc_client := service.NewGrpcClient()
+		input_text := r.FormValue("text")
+		if input_text == "" {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+		text := grpc_client.Chat(input_text, nil)
+		w.Header().Set("Content-Type", "application/json")
 
 		data, err := json.Marshal(LumenResponse{
 			Text: text,
@@ -26,13 +30,5 @@ func (h *Handler) LumenHandler() http.HandlerFunc {
 			log.Println("unable to marshal JSON: ", err)
 		}
 		w.Write(data)
-
-		// textSplit := strings.Split(text, " ")
-		// for _, t := range textSplit {
-		// w.Write([]byte(t))
-		// flusher.Flush()
-		// time.Sleep(10 * time.Millisecond)
-		// }
-
 	}
 }

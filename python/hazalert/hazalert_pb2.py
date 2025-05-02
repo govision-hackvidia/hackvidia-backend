@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0ehazalert.proto\x12\x07service\" \n\x0fHazalertRequest\x12\r\n\x05image\x18\x01 \x01(\x0c\",\n\x10HazalertResponse\x12\x18\n\x10nearest_distance\x18\x01 \x01(\x02\x32O\n\x0bMllmService\x12@\n\x07Predict\x12\x18.service.HazalertRequest\x1a\x19.service.HazalertResponse\"\x00\x42:Z8github.com/govision-hackvidia/hackvidia-backend/protobufb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0ehazalert.proto\x12\x07service\" \n\x0fHazalertRequest\x12\r\n\x05image\x18\x01 \x01(\x0c\",\n\x10HazalertResponse\x12\x18\n\x10nearest_distance\x18\x01 \x01(\x02\x32S\n\x0fHazalertService\x12@\n\x07Predict\x12\x18.service.HazalertRequest\x1a\x19.service.HazalertResponse\"\x00\x42:Z8github.com/govision-hackvidia/hackvidia-backend/protobufb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -36,6 +36,6 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_HAZALERTREQUEST']._serialized_end=59
   _globals['_HAZALERTRESPONSE']._serialized_start=61
   _globals['_HAZALERTRESPONSE']._serialized_end=105
-  _globals['_MLLMSERVICE']._serialized_start=107
-  _globals['_MLLMSERVICE']._serialized_end=186
+  _globals['_HAZALERTSERVICE']._serialized_start=107
+  _globals['_HAZALERTSERVICE']._serialized_end=190
 # @@protoc_insertion_point(module_scope)

@@ -10,6 +10,6 @@ message HazalertResponse {
     float nearest_distance = 1;
 }
 
-service MllmService {
+service HazalertService {
     rpc Predict (HazalertRequest) returns (HazalertResponse) {}
 }
