@@ -11,7 +11,7 @@ type LumenResponse struct {
 	IsDone bool   `json:"is_done"`
 }
 
-func LumenHandler() http.HandlerFunc {
+func (h *Handler) LumenHandler() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		// TODO: EnviroScan Implementation
 		data, err := json.Marshal(LumenResponse{

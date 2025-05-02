@@ -11,7 +11,7 @@ type EnviroscanResponse struct {
 	IsDone bool   `json:"is_done"`
 }
 
-func EnviroscanHandler() http.HandlerFunc {
+func (h *Handler) EnviroscanHandler() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		// TODO: EnviroScan Implementation
 		data, err := json.Marshal(EnviroscanResponse{
