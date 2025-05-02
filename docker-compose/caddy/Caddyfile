@@ -1,0 +1,3 @@
+govision.web.id {
+	reverse_proxy govision_main:8080
+}

@@ -1,0 +1,12 @@
+services:
+  main_service:
+    container_name: govision_main
+    image: govision_main_service:v1.0
+    ports:
+      - "8080:8080"
+    networks:
+      - caddy_network
+
+networks:
+  caddy_network:
+    external: true

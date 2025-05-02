@@ -16,5 +16,5 @@ func main() {
 	r.HandleFunc("/api/v1/lumen", h.LumenHandler()).Methods("POST")
 
 	log.Println("Listening on :8080")
-	http.ListenAndServe(":8080", r)
+	http.ListenAndServe("0.0.0.0:8080", r)
 }
