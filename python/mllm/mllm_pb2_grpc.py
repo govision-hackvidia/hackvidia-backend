@@ -39,12 +39,23 @@ class MllmServiceStub(object):
                 request_serializer=mllm__pb2.MllmRequest.SerializeToString,
                 response_deserializer=mllm__pb2.MllmResponse.FromString,
                 _registered_method=True)
+        self.ChatLumen = channel.unary_unary(
+                '/service.MllmService/ChatLumen',
+                request_serializer=mllm__pb2.LumenRequest.SerializeToString,
+                response_deserializer=mllm__pb2.LumenResponse.FromString,
+                _registered_method=True)
 
 
 class MllmServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def Chat(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ChatLumen(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -57,6 +68,11 @@ def add_MllmServiceServicer_to_server(servicer, server):
                     servicer.Chat,
                     request_deserializer=mllm__pb2.MllmRequest.FromString,
                     response_serializer=mllm__pb2.MllmResponse.SerializeToString,
+            ),
+            'ChatLumen': grpc.unary_unary_rpc_method_handler(
+                    servicer.ChatLumen,
+                    request_deserializer=mllm__pb2.LumenRequest.FromString,
+                    response_serializer=mllm__pb2.LumenResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -86,6 +102,33 @@ class MllmService(object):
             '/service.MllmService/Chat',
             mllm__pb2.MllmRequest.SerializeToString,
             mllm__pb2.MllmResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ChatLumen(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/service.MllmService/ChatLumen',
+            mllm__pb2.LumenRequest.SerializeToString,
+            mllm__pb2.LumenResponse.FromString,
             options,
             channel_credentials,
             insecure,

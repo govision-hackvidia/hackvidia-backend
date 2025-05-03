@@ -47,3 +47,14 @@ func (c *MllmClient) Chat(text string, image []byte) string {
 
 	return resp.GetText()
 }
+
+func (c *MllmClient) ChatLumen(text string) string {
+	resp, err := c.Client.ChatLumen(context.Background(), &protobuf.LumenRequest{
+		Text: text,
+	})
+	if err != nil {
+		log.Println("error on Chat: ", err)
+	}
+
+	return resp.GetText()
+}

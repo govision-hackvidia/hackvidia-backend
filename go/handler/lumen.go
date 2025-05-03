@@ -20,7 +20,7 @@ func (h *Handler) LumenHandler() http.HandlerFunc {
 		if input_text == "" {
 			w.WriteHeader(http.StatusBadRequest)
 		}
-		text := grpc_client.Chat(input_text, nil)
+		text := grpc_client.ChatLumen(input_text)
 		w.Header().Set("Content-Type", "application/json")
 
 		data, err := json.Marshal(LumenResponse{

@@ -117,6 +117,94 @@ func (x *MllmResponse) GetText() string {
 	return ""
 }
 
+type LumenRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Text          string                 `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LumenRequest) Reset() {
+	*x = LumenRequest{}
+	mi := &file_mllm_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LumenRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LumenRequest) ProtoMessage() {}
+
+func (x *LumenRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_mllm_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LumenRequest.ProtoReflect.Descriptor instead.
+func (*LumenRequest) Descriptor() ([]byte, []int) {
+	return file_mllm_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *LumenRequest) GetText() string {
+	if x != nil {
+		return x.Text
+	}
+	return ""
+}
+
+type LumenResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Text          string                 `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LumenResponse) Reset() {
+	*x = LumenResponse{}
+	mi := &file_mllm_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LumenResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LumenResponse) ProtoMessage() {}
+
+func (x *LumenResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_mllm_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LumenResponse.ProtoReflect.Descriptor instead.
+func (*LumenResponse) Descriptor() ([]byte, []int) {
+	return file_mllm_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *LumenResponse) GetText() string {
+	if x != nil {
+		return x.Text
+	}
+	return ""
+}
+
 var File_mllm_proto protoreflect.FileDescriptor
 
 const file_mllm_proto_rawDesc = "" +
@@ -128,9 +216,14 @@ const file_mllm_proto_rawDesc = "" +
 	"\x05image\x18\x02 \x01(\fH\x00R\x05image\x88\x01\x01B\b\n" +
 	"\x06_image\"\"\n" +
 	"\fMllmResponse\x12\x12\n" +
-	"\x04text\x18\x01 \x01(\tR\x04text2D\n" +
+	"\x04text\x18\x01 \x01(\tR\x04text\"\"\n" +
+	"\fLumenRequest\x12\x12\n" +
+	"\x04text\x18\x01 \x01(\tR\x04text\"#\n" +
+	"\rLumenResponse\x12\x12\n" +
+	"\x04text\x18\x01 \x01(\tR\x04text2\x82\x01\n" +
 	"\vMllmService\x125\n" +
-	"\x04Chat\x12\x14.service.MllmRequest\x1a\x15.service.MllmResponse\"\x00B:Z8github.com/govision-hackvidia/hackvidia-backend/protobufb\x06proto3"
+	"\x04Chat\x12\x14.service.MllmRequest\x1a\x15.service.MllmResponse\"\x00\x12<\n" +
+	"\tChatLumen\x12\x15.service.LumenRequest\x1a\x16.service.LumenResponse\"\x00B:Z8github.com/govision-hackvidia/hackvidia-backend/protobufb\x06proto3"
 
 var (
 	file_mllm_proto_rawDescOnce sync.Once
@@ -144,16 +237,20 @@ func file_mllm_proto_rawDescGZIP() []byte {
 	return file_mllm_proto_rawDescData
 }
 
-var file_mllm_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_mllm_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_mllm_proto_goTypes = []any{
-	(*MllmRequest)(nil),  // 0: service.MllmRequest
-	(*MllmResponse)(nil), // 1: service.MllmResponse
+	(*MllmRequest)(nil),   // 0: service.MllmRequest
+	(*MllmResponse)(nil),  // 1: service.MllmResponse
+	(*LumenRequest)(nil),  // 2: service.LumenRequest
+	(*LumenResponse)(nil), // 3: service.LumenResponse
 }
 var file_mllm_proto_depIdxs = []int32{
 	0, // 0: service.MllmService.Chat:input_type -> service.MllmRequest
-	1, // 1: service.MllmService.Chat:output_type -> service.MllmResponse
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
+	2, // 1: service.MllmService.ChatLumen:input_type -> service.LumenRequest
+	1, // 2: service.MllmService.Chat:output_type -> service.MllmResponse
+	3, // 3: service.MllmService.ChatLumen:output_type -> service.LumenResponse
+	2, // [2:4] is the sub-list for method output_type
+	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -171,7 +268,7 @@ func file_mllm_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_mllm_proto_rawDesc), len(file_mllm_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

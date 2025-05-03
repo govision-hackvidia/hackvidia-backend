@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nmllm.proto\x12\x07service\"9\n\x0bMllmRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x12\n\x05image\x18\x02 \x01(\x0cH\x00\x88\x01\x01\x42\x08\n\x06_image\"\x1c\n\x0cMllmResponse\x12\x0c\n\x04text\x18\x01 \x01(\t2D\n\x0bMllmService\x12\x35\n\x04\x43hat\x12\x14.service.MllmRequest\x1a\x15.service.MllmResponse\"\x00\x42:Z8github.com/govision-hackvidia/hackvidia-backend/protobufb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nmllm.proto\x12\x07service\"9\n\x0bMllmRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x12\n\x05image\x18\x02 \x01(\x0cH\x00\x88\x01\x01\x42\x08\n\x06_image\"\x1c\n\x0cMllmResponse\x12\x0c\n\x04text\x18\x01 \x01(\t\"\x1c\n\x0cLumenRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\"\x1d\n\rLumenResponse\x12\x0c\n\x04text\x18\x01 \x01(\t2\x82\x01\n\x0bMllmService\x12\x35\n\x04\x43hat\x12\x14.service.MllmRequest\x1a\x15.service.MllmResponse\"\x00\x12<\n\tChatLumen\x12\x15.service.LumenRequest\x1a\x16.service.LumenResponse\"\x00\x42:Z8github.com/govision-hackvidia/hackvidia-backend/protobufb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -36,6 +36,10 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_MLLMREQUEST']._serialized_end=80
   _globals['_MLLMRESPONSE']._serialized_start=82
   _globals['_MLLMRESPONSE']._serialized_end=110
-  _globals['_MLLMSERVICE']._serialized_start=112
-  _globals['_MLLMSERVICE']._serialized_end=180
+  _globals['_LUMENREQUEST']._serialized_start=112
+  _globals['_LUMENREQUEST']._serialized_end=140
+  _globals['_LUMENRESPONSE']._serialized_start=142
+  _globals['_LUMENRESPONSE']._serialized_end=171
+  _globals['_MLLMSERVICE']._serialized_start=174
+  _globals['_MLLMSERVICE']._serialized_end=304
 # @@protoc_insertion_point(module_scope)

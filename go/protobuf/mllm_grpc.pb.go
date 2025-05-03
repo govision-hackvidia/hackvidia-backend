@@ -19,7 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	MllmService_Chat_FullMethodName = "/service.MllmService/Chat"
+	MllmService_Chat_FullMethodName      = "/service.MllmService/Chat"
+	MllmService_ChatLumen_FullMethodName = "/service.MllmService/ChatLumen"
 )
 
 // MllmServiceClient is the client API for MllmService service.
@@ -27,6 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MllmServiceClient interface {
 	Chat(ctx context.Context, in *MllmRequest, opts ...grpc.CallOption) (*MllmResponse, error)
+	ChatLumen(ctx context.Context, in *LumenRequest, opts ...grpc.CallOption) (*LumenResponse, error)
 }
 
 type mllmServiceClient struct {
@@ -47,11 +49,22 @@ func (c *mllmServiceClient) Chat(ctx context.Context, in *MllmRequest, opts ...g
 	return out, nil
 }
 
+func (c *mllmServiceClient) ChatLumen(ctx context.Context, in *LumenRequest, opts ...grpc.CallOption) (*LumenResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(LumenResponse)
+	err := c.cc.Invoke(ctx, MllmService_ChatLumen_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MllmServiceServer is the server API for MllmService service.
 // All implementations must embed UnimplementedMllmServiceServer
 // for forward compatibility.
 type MllmServiceServer interface {
 	Chat(context.Context, *MllmRequest) (*MllmResponse, error)
+	ChatLumen(context.Context, *LumenRequest) (*LumenResponse, error)
 	mustEmbedUnimplementedMllmServiceServer()
 }
 
@@ -64,6 +77,9 @@ type UnimplementedMllmServiceServer struct{}
 
 func (UnimplementedMllmServiceServer) Chat(context.Context, *MllmRequest) (*MllmResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Chat not implemented")
+}
+func (UnimplementedMllmServiceServer) ChatLumen(context.Context, *LumenRequest) (*LumenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ChatLumen not implemented")
 }
 func (UnimplementedMllmServiceServer) mustEmbedUnimplementedMllmServiceServer() {}
 func (UnimplementedMllmServiceServer) testEmbeddedByValue()                     {}
@@ -104,6 +120,24 @@ func _MllmService_Chat_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MllmService_ChatLumen_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LumenRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MllmServiceServer).ChatLumen(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MllmService_ChatLumen_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MllmServiceServer).ChatLumen(ctx, req.(*LumenRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // MllmService_ServiceDesc is the grpc.ServiceDesc for MllmService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -114,6 +148,10 @@ var MllmService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Chat",
 			Handler:    _MllmService_Chat_Handler,
+		},
+		{
+			MethodName: "ChatLumen",
+			Handler:    _MllmService_ChatLumen_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

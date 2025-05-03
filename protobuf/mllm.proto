@@ -11,6 +11,15 @@ message MllmResponse {
     string text = 1;
 }
 
+message LumenRequest {
+    string text = 1;
+}
+
+message LumenResponse {
+    string text = 1;
+}
+
 service MllmService {
-    rpc Chat (MllmRequest) returns (MllmResponse) {}
+    rpc Chat (MllmRequest) returns (MllmResponse) {};
+    rpc ChatLumen(LumenRequest) returns (LumenResponse) {};
 }
