@@ -9,29 +9,26 @@ import (
 	"github.com/govision-hackvidia/hackvidia-backend/service"
 )
 
-type EnviroscanResponse struct {
-	Text   string `json:"text"`
-	IsDone bool   `json:"is_done"`
+type HazalertResponse struct {
+	NearestDistance float32 `json:"nearest_distance"`
 }
 
-func (h *Handler) EnviroscanHandler() http.HandlerFunc {
-	grpc_client := service.NewMllmClient()
+func (h *Handler) HazalertHandler() http.HandlerFunc {
+	grpc_client := service.NewHazalertClient()
 	return func(w http.ResponseWriter, r *http.Request) {
-		input_text := r.FormValue("text")
 		imgForm, _, err := r.FormFile("img")
 		if err != nil {
 			log.Println("error on form file: ", err)
-			return
 		}
 		imgByte, err := io.ReadAll(imgForm)
 		if err != nil {
 			log.Println("error on read file: ", err)
 		}
-		text := grpc_client.Chat(input_text, imgByte)
+		nearest_distance := grpc_client.Predict(imgByte)
 		w.Header().Set("Content-Type", "application/json")
 
-		data, err := json.Marshal(EnviroscanResponse{
-			Text: text,
+		data, err := json.Marshal(HazalertResponse{
+			NearestDistance: nearest_distance,
 		})
 		if err != nil {
 			log.Println("unable to marshal JSON: ", err)

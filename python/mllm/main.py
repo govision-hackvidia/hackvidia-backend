@@ -40,7 +40,6 @@ class MLLMServicer(mllm_pb2_grpc.MllmService):
         print(len(request.image))
         if request.image != None and len(request.image) > 0:
             img_buffer = io.BytesIO(request.image)
-            print(img_buffer)
             img = Image.open(img_buffer)
             content.append({"type": "image", "image": img})
         conversation = [

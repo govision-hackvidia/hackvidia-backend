@@ -11,11 +11,11 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-type GrpcClient struct {
+type MllmClient struct {
 	Client protobuf.MllmServiceClient
 }
 
-func NewGrpcClient() *GrpcClient {
+func NewMllmClient() *MllmClient {
 	var opt []grpc.DialOption
 	opt = append(opt, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	mllm_host := os.Getenv("MLLM_HOST")
@@ -31,12 +31,12 @@ func NewGrpcClient() *GrpcClient {
 		log.Println("error on gRPC client: ", err)
 	}
 	client := protobuf.NewMllmServiceClient(conn)
-	return &GrpcClient{
+	return &MllmClient{
 		Client: client,
 	}
 }
 
-func (c *GrpcClient) Chat(text string, image []byte) string {
+func (c *MllmClient) Chat(text string, image []byte) string {
 	resp, err := c.Client.Chat(context.Background(), &protobuf.MllmRequest{
 		Text:  text,
 		Image: image,

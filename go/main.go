@@ -24,6 +24,7 @@ func main() {
 	r.HandleFunc("/api/v1/login", h.LoginHandler()).Methods("POST")
 	r.HandleFunc("/api/v1/enviroscan", h.EnviroscanHandler()).Methods("POST")
 	r.HandleFunc("/api/v1/lumen", h.LumenHandler()).Methods("POST")
+	r.HandleFunc("/api/v1/hazalert", h.HazalertHandler()).Methods("POST")
 
 	log.Printf("Listening on %s:%s", host, port)
 	http.ListenAndServe(fmt.Sprintf("%s:%s", host, port), r)

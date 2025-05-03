@@ -15,7 +15,7 @@ type LumenResponse struct {
 
 func (h *Handler) LumenHandler() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		grpc_client := service.NewGrpcClient()
+		grpc_client := service.NewMllmClient()
 		input_text := r.FormValue("text")
 		if input_text == "" {
 			w.WriteHeader(http.StatusBadRequest)
