@@ -16,8 +16,8 @@ type HazalertResponse struct {
 func (h *Handler) HazalertHandler() http.HandlerFunc {
 	grpc_client := service.NewHazalertClient()
 	return func(w http.ResponseWriter, r *http.Request) {
-		imgForm, _, err := r.FormFile("img")
-		if err != nil {
+		imgForm, imgHeader, err := r.FormFile("img")
+		if err != nil || imgHeader != nil {
 			log.Println("error on form file: ", err)
 		}
 		imgByte, err := io.ReadAll(imgForm)

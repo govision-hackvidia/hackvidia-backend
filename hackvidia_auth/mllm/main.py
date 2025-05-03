@@ -75,7 +75,7 @@ class MLLMServicer(mllm_pb2_grpc.MllmService):
         ).to(self.model.device, model_dtype)
 
         # Generate
-        generate_ids = self.model.generate(**inputs, max_new_tokens=1024, do_sample=True, min_p=.02, repetition_penalty=1.02)
+        generate_ids = self.model.generate(**inputs, max_new_tokens=128, do_sample=True, min_p=.02, repetition_penalty=1.02)
         generate_ids = generate_ids[:, inputs["input_ids"].shape[1]:]
         output = self.processor.batch_decode(generate_ids, skip_special_tokens=True)
         return mllm_pb2.MllmResponse(text=output[0])

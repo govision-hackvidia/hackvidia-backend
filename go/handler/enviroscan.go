@@ -18,8 +18,8 @@ func (h *Handler) EnviroscanHandler() http.HandlerFunc {
 	grpc_client := service.NewMllmClient()
 	return func(w http.ResponseWriter, r *http.Request) {
 		input_text := r.FormValue("text")
-		imgForm, _, err := r.FormFile("img")
-		if err != nil {
+		imgForm, fileHeader, err := r.FormFile("img")
+		if err != nil || fileHeader != nil {
 			log.Println("error on form file: ", err)
 			return
 		}
