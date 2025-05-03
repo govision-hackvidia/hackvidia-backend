@@ -4,7 +4,7 @@ option go_package = "github.com/govision-hackvidia/hackvidia-backend/protobuf";
 
 message MllmRequest {
     string text = 1;
-    optional bytes image = 2;
+    bytes image = 2;
 }
 
 message MllmResponse {
